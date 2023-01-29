@@ -1,5 +1,6 @@
 package com.nima.guessthatpokemon.screens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
@@ -38,8 +39,6 @@ fun GameScreen(
     val context = LocalContext.current
     val randomIndex = remember{ mutableStateOf(viewModel.pokemonIndex?.value) }
 
-//    val storageViewModel = ViewModel (PokemonGameFireViewModel::class.java)
-
     if (randomIndex.value?.size == 20){
         val pokemonList = produceState<MutableList<Pokemon?>?>(initialValue = null){
             value = viewModel.getPokemons(pokemonIdSet = randomIndex.value)
@@ -77,6 +76,8 @@ fun GameScreen(
                         }
                         val pokemonName =
                             pokemonList!![pokemonListIndex]?.name
+
+                        Log.d("LOL", "GameScreen: $pokemonName")
 
                         val pokemonImageLink =
                             "https://raw.githubusercontent.com/PokeAPI/" +
@@ -221,7 +222,10 @@ fun GameScreen(
                                                 ) {
                                                     Toast.makeText(context, "Pokemon Captured", Toast.LENGTH_SHORT)
                                                         .show()
-//                                                    storageViewModel.addId(pokemonList[pokemonListIndex]!!.id)
+                                                    val pokemon =
+                                                        com.nima.guessthatpokemon.model.Pokemon(pokemonList[pokemonListIndex]!!.id)
+
+                                                    viewModel.addPokemon(pokemon)
                                                     pokemonImageTint.value = null
                                                     textFieldEnabled = false
                                                     goNext = true
