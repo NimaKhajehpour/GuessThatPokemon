@@ -77,7 +77,6 @@ fun GameScreen(
                         val pokemonName =
                             pokemonList!![pokemonListIndex]?.name
 
-                        Log.d("LOL", "GameScreen: $pokemonName")
 
                         val pokemonImageLink =
                             "https://raw.githubusercontent.com/PokeAPI/" +
