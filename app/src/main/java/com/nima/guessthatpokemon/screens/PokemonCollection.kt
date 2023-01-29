@@ -268,7 +268,19 @@ fun PokemonCollection(
                     LoadingDialog(text = "Loading Pokemon Data")
                 }
             }else{
-                LoadingDialog()
+                TitleImage(
+                    painter = painterResource(id = R.drawable.surprised_pikachu)
+                )
+                Text(
+                    text = "No Pokemons Yet",
+                    style = MaterialTheme.typography.labelLarge,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+                Text(
+                    text = "Maybe You Should Guess The Pokemons Better",
+                    style = MaterialTheme.typography.labelSmall,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
             }
 
         }
