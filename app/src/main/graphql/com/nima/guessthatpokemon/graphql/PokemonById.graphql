@@ -1,0 +1,26 @@
+query PokemonById($language: pokemon_v2_abilityeffecttext_bool_exp){
+    pokemon_v2_pokemonspecies {
+        id
+        pokemon_v2_pokemons {
+            name
+            pokemon_v2_pokemontypes {
+                pokemon_v2_type {
+                    name
+                }
+            }
+            height
+            weight
+            pokemon_v2_pokemonstats {
+                base_stat
+            }
+            pokemon_v2_pokemonabilities {
+                pokemon_v2_ability {
+                    name
+                    pokemon_v2_abilityeffecttexts(where: $language) {
+                        effect
+                    }
+                }
+            }
+        }
+    }
+}
