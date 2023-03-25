@@ -1,0 +1,13 @@
+query PokemonCollectionList($limit: Int, $where: pokemon_v2_pokemonspecies_bool_exp){
+    pokemon_v2_pokemonspecies (limit: $limit, where: $where) {
+        id
+        pokemon_v2_pokemons {
+            name
+            pokemon_v2_pokemontypes {
+                pokemon_v2_type {
+                    name
+                }
+            }
+        }
+    }
+}

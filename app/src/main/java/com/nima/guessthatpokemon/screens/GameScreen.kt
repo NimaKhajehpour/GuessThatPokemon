@@ -25,25 +25,71 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.apollographql.apollo3.api.ApolloResponse
+import com.apollographql.apollo3.api.Optional
+import com.nima.guessthatpokemon.PokemonForGameQuery
+import com.nima.guessthatpokemon.client.apolloClient
 import com.nima.guessthatpokemon.components.*
-import com.nima.guessthatpokemon.model.pokemon.Pokemon
+import com.nima.guessthatpokemon.type.*
 import com.nima.guessthatpokemon.viewmodels.PokemonGameViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel as ViewModel
+import kotlinx.coroutines.launch
+import java.security.cert.PKIXRevocationChecker.Option
 
 @Composable
 fun GameScreen(
     navController: NavController,
-    viewModel: PokemonGameViewModel
+    viewModel: PokemonGameViewModel,
+    lang: String?,
+    gen: String?
 ){
 
     val context = LocalContext.current
     val randomIndex = remember{ mutableStateOf(viewModel.pokemonIndex?.value) }
 
-    if (randomIndex.value?.size == 20){
-        val pokemonList = produceState<MutableList<Pokemon?>?>(initialValue = null){
-            value = viewModel.getPokemons(pokemonIdSet = randomIndex.value)
-        }.value
+    val generation: String? by remember {
+       mutableStateOf(
+           when(gen){
+               "All" -> null
+               "1" -> "generation-i"
+               "2" -> "generation-ii"
+               "3" -> "generation-iii"
+               "4" -> "generation-iv"
+               "5" -> "generation-v"
+               "6" -> "generation-vi"
+               "7" -> "generation-vii"
+               "8" -> "generation-viii"
+               "9" -> "generation-ix"
+               else -> null
+           }
+       )
+    }
 
+    if (randomIndex.value?.size == 20){
+
+        var pokemonList: ApolloResponse<PokemonForGameQuery.Data>? by remember {
+            mutableStateOf(null)
+        }
+
+        LaunchedEffect(key1 = Unit){
+            launch {
+                pokemonList = apolloClient.query(PokemonForGameQuery(
+                    namelanguage = Optional.present(Pokemon_v2_pokemonspeciesname_bool_exp(pokemon_v2_language =
+                        Optional.present(Pokemon_v2_language_bool_exp(name = Optional.present(String_comparison_exp(_eq = Optional.present(lang)))))
+                    )
+                    ),
+                    generation = Optional.present(Pokemon_v2_pokemonspecies_bool_exp(
+                        pokemon_v2_generation = Optional.present(
+                            Pokemon_v2_generation_bool_exp(
+                                name = Optional.present(
+                                    String_comparison_exp(_eq =
+                                Optional.present(generation))
+                                )
+                            )
+                        )
+                    ))
+                )).execute()
+            }
+        }
         Surface(
             modifier = Modifier
                 .fillMaxSize(),
@@ -53,16 +99,16 @@ fun GameScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                AnimatedVisibility (pokemonList == null){
+                AnimatedVisibility (pokemonList == null || pokemonList?.data == null){
                     LoadingDialog()
                 }
-                AnimatedVisibility (pokemonList != null && pokemonList.size == 0){
+                AnimatedVisibility (pokemonList != null && pokemonList?.data?.pokemon_v2_pokemonspecies?.size == 0){
                     // Could not connect to api
                     ErrorDialog{
                         navController.popBackStack()
                     }
                 }
-                AnimatedVisibility( pokemonList != null && pokemonList.size > 0){
+                AnimatedVisibility( pokemonList != null && pokemonList?.data?.pokemon_v2_pokemonspecies?.size!! > 0){
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
@@ -75,14 +121,14 @@ fun GameScreen(
                             mutableStateOf(0)
                         }
                         val pokemonName =
-                            pokemonList!![pokemonListIndex]?.name
+                            pokemonList!!.data?.pokemon_v2_pokemonspecies!![pokemonListIndex].pokemon_v2_pokemonspeciesnames[0].name
 
                         Log.d("LOL", "GameScreen: $pokemonName")
 
                         val pokemonImageLink =
                             "https://raw.githubusercontent.com/PokeAPI/" +
                                     "sprites/master/sprites/pokemon/other/" +
-                                    "official-artwork/${pokemonList[pokemonListIndex]?.id}.png"
+                                    "official-artwork/${pokemonList!!.data?.pokemon_v2_pokemonspecies!![pokemonListIndex].id}.png"
 
                         val pokemonImageTint = remember {
                             mutableStateOf<ColorFilter?>(ColorFilter.tint(color = Color.Black))
@@ -177,7 +223,7 @@ fun GameScreen(
                                     }
                                 }
                                 if (chances == 3){
-                                    Text(text = pokemonName!!,
+                                    Text(text = pokemonName,
                                         style = MaterialTheme.typography.bodySmall,
                                         fontWeight = FontWeight.Bold,
                                         modifier = Modifier.padding(bottom = 8.dp)
@@ -223,7 +269,7 @@ fun GameScreen(
                                                     Toast.makeText(context, "Pokemon Captured", Toast.LENGTH_SHORT)
                                                         .show()
                                                     val pokemon =
-                                                        com.nima.guessthatpokemon.model.Pokemon(pokemonList[pokemonListIndex]!!.id)
+                                                        com.nima.guessthatpokemon.model.Pokemon(pokemonList?.data?.pokemon_v2_pokemonspecies!![pokemonListIndex].id)
 
                                                     viewModel.addPokemon(pokemon)
                                                     pokemonImageTint.value = null

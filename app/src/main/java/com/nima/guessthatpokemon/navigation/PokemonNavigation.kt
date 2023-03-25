@@ -22,8 +22,16 @@ fun PokemonNavigation() {
                 navController = navController
             )
         }
-        composable(PokemonScreens.GameScreen.name){
-            GameScreen(navController = navController, viewModel = hiltViewModel())
+        composable(PokemonScreens.GameScreen.name+"/{lang}/{gen}",
+            arguments = listOf(
+                navArgument(name = "lang"){type = NavType.StringType},
+                navArgument(name = "gen"){type = NavType.StringType},
+            )
+        ){
+            GameScreen(navController = navController, viewModel = hiltViewModel(),
+                lang = it.arguments?.getString("lang"),
+                gen = it.arguments?.getString("gen"),
+            )
         }
         composable(PokemonScreens.CollectionScreen.name){
             PokemonCollection(navController = navController)
