@@ -16,10 +16,6 @@ import javax.inject.Inject
 class PokemonGameViewModel @Inject constructor(private val repository: PokemonRepository)
     : ViewModel() {
 
-    suspend fun getPokemons(pokemonIdSet: List<Int>?): MutableList<Pokemon?> {
-        return repository.getPokemonById(pokemonIdSet = pokemonIdSet!!)
-    }
-
     var pokemonIndex: MutableState<List<Int>>? = null
 
     init {

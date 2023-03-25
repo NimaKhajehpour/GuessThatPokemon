@@ -91,7 +91,7 @@ fun HomeScreen(
                                Text(text = "With this version of the game you have the option to change the language of the names on Pokemons and the" +
                                        "Generation of them so that they are filtered as you like. Although the problem with the language selection is that it is not complete on languages other than English" +
                                        "and you might not have a complete GuessThatPokemon experience!",
-                                   modifier = Modifier.padding(bottom = 8.dp),
+                                   modifier = Modifier.padding(bottom = 12.dp),
                                    textAlign = TextAlign.Center
                                )
 
