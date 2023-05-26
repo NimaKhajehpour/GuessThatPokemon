@@ -114,7 +114,7 @@ fun HomeScreen(
                                    ExposedDropdownMenu(
                                        expanded = languageMenuExpanded,
                                        onDismissRequest = { languageMenuExpanded = false }) {
-                                       listOf("ja-Hrkt", "roomaji", "ko", "zh-Hant", "fr", "de", "es", "it", "en", "cs", "ja", "zh-Hans", "pt-BR").forEach{
+                                       listOf("ja-Hrkt", "roomaji", "ko", "zh-Hant", "fr", "de", "es", "it", "en", "ja", "zh-Hans").forEach{
                                            DropdownMenuItem(
                                                text = { Text(text = it) },
                                                onClick = {

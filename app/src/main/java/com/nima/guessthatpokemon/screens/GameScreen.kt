@@ -94,7 +94,7 @@ fun GameScreen(
                                 id = Optional.present(
                                     Int_comparison_exp(
                                          _in = Optional.present(
-                                            Constants.giveRandomIds(generation)
+                                            Constants.giveRandomIds(generation, lang!!)
                                         )
                                     )
                                 )
@@ -105,7 +105,7 @@ fun GameScreen(
                         id = Optional.present(
                             Int_comparison_exp(
                             _in = Optional.present(
-                                Constants.giveRandomIds(null)
+                                Constants.giveRandomIds(null, lang!!)
                             )
                         )
                         )
@@ -147,7 +147,7 @@ fun GameScreen(
                         val pokemonName =
                             pokemonList!!.data?.pokemon_v2_pokemonspecies!![pokemonListIndex].pokemon_v2_pokemonspeciesnames[0].name
 
-                        Log.d("LOL", "GameScreen: ${pokemonName}")
+                        Log.d("LOL", "GameScreen: ${pokemonList!!.data?.pokemon_v2_pokemonspecies!!}")
 
                         val pokemonImageLink =
                             "https://raw.githubusercontent.com/PokeAPI/" +
