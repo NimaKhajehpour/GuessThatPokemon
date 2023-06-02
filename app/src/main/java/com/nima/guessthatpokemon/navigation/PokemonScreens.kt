@@ -4,5 +4,6 @@ enum class PokemonScreens {
     HomeScreen,
     GameScreen,
     CollectionScreen,
-    DetailScreen;
+    DetailScreen,
+    AboutScreen
 }
