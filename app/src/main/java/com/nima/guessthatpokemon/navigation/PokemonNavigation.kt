@@ -7,10 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.nima.guessthatpokemon.screens.DetailScreen
-import com.nima.guessthatpokemon.screens.GameScreen
-import com.nima.guessthatpokemon.screens.HomeScreen
-import com.nima.guessthatpokemon.screens.PokemonCollection
+import com.nima.guessthatpokemon.screens.*
 
 @Composable
 fun PokemonNavigation() {
@@ -47,6 +44,10 @@ fun PokemonNavigation() {
             DetailScreen(navController = navController,
                 pokemonId = it.arguments?.getInt("id")
             )
+        }
+
+        composable(PokemonScreens.AboutScreen.name){
+            AboutScreen(navController = navController)
         }
     }
 }

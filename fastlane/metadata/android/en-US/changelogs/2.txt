@@ -1,0 +1,6 @@
+Performance changes for API Calls: Migrated to GraphQL
+Version changes: Migrated to openJDK 17 and bumped the material 3 version
+Features added:
+- Users can now select their favorite generation of pokemon to guess the names from
+- Users can now select from the available languages on the database to guess the name with
+- Added the skip button to game screen so that Users can skip a pokemon if they get stuck guessing the name.

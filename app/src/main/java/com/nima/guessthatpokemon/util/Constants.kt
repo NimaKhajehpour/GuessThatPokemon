@@ -1,6 +1,7 @@
 package com.nima.guessthatpokemon.util
 
 import androidx.compose.ui.graphics.Color
+import java.util.*
 
 object Constants {
     const val baseUrl = "https://pokeapi.co/api/v2/"
@@ -28,6 +29,33 @@ object Constants {
             "shadow" -> Color(0xff715998)
             else -> Color(0xff6BA496)
 
+        }
+    }
+
+    fun findEmptyNamesIndex(lang: String): List<Int>{
+        return when(lang){
+            "zh-Hant" -> (906..1008).toList()
+            "de" -> (906..907).toList()
+            "es" -> (899..1008).toList()
+            "it" -> (906..1008).toList()
+            "zh-Hans" -> (906..1008).toList()
+            else -> emptyList()
+        }
+    }
+
+    fun giveRandomIds(generation: String?, lang: String): List<Int>{
+        return when(generation){
+            null -> (1..1008).toList().subtract(findEmptyNamesIndex(lang).toSet()).shuffled(Random()).subList(0, 20)
+            "generation-i" -> (1..151).toList().subtract(findEmptyNamesIndex(lang).toSet()).shuffled(Random()).subList(0, 20)
+            "generation-ii" -> (152..251).toList().subtract(findEmptyNamesIndex(lang).toSet()).shuffled(Random()).subList(0, 20)
+            "generation-iii" -> (252..386).toList().subtract(findEmptyNamesIndex(lang).toSet()).shuffled(Random()).subList(0, 20)
+            "generation-iv" -> (387..493).toList().subtract(findEmptyNamesIndex(lang).toSet()).shuffled(Random()).subList(0, 20)
+            "generation-v" -> (494..649).toList().subtract(findEmptyNamesIndex(lang).toSet()).shuffled(Random()).subList(0, 20)
+            "generation-vi" -> (650..721).toList().subtract(findEmptyNamesIndex(lang).toSet()).shuffled(Random()).subList(0, 20)
+            "generation-vii" -> (722..809).toList().subtract(findEmptyNamesIndex(lang).toSet()).shuffled(Random()).subList(0, 20)
+            "generation-viii" -> (810..905).toList().subtract(findEmptyNamesIndex(lang).toSet()).shuffled(Random()).subList(0, 20)
+            "generation-ix" -> (906..1008).toList().subtract(findEmptyNamesIndex(lang).toSet()).shuffled(Random()).subList(0, 20)
+            else -> emptyList()
         }
     }
 }

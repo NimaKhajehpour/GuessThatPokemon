@@ -1,0 +1,4 @@
+#11 Added an about section with all important links to github repo.
+#13 Fixed type colors on collection screen
+#12 Fixed app crashing on certain languages because of being incomplete. Some languages might have less pokemon names in them now.
+also removed one or two empty languages because of not having any names in them.

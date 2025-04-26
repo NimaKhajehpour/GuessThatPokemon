@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -88,8 +89,8 @@ fun HomeScreen(
                                }
 
 
-                               Text(text = "With this version of the game you have the option to change the language of the names on Pokemons and the" +
-                                       "Generation of them so that they are filtered as you like. Although the problem with the language selection is that it is not complete on languages other than English" +
+                               Text(text = "With this version of the game you have the option to change the language of the names on Pokemons and the " +
+                                       "Generation of them so that they are filtered as you like. Although the problem with the language selection is that it is not complete on languages other than English " +
                                        "and you might not have a complete GuessThatPokemon experience!",
                                    modifier = Modifier.padding(bottom = 12.dp),
                                    textAlign = TextAlign.Center
@@ -114,7 +115,7 @@ fun HomeScreen(
                                    ExposedDropdownMenu(
                                        expanded = languageMenuExpanded,
                                        onDismissRequest = { languageMenuExpanded = false }) {
-                                       listOf("ja-Hrkt", "roomaji", "ko", "zh-Hant", "fr", "de", "es", "it", "en", "cs", "ja", "zh-Hans", "pt-BR").forEach{
+                                       listOf("ja-Hrkt", "roomaji", "ko", "zh-Hant", "fr", "de", "es", "it", "en", "ja", "zh-Hans").forEach{
                                            DropdownMenuItem(
                                                text = { Text(text = it) },
                                                onClick = {
@@ -240,6 +241,32 @@ fun HomeScreen(
 
                 }
                 Spacer(modifier = Modifier.weight(1f))
+
+                IconButton(onClick = {
+                    navController.navigate(PokemonScreens.AboutScreen.name)
+                },
+                    modifier = Modifier.size(48.dp)
+
+                ) {
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ){
+                        Icon(
+                            imageVector = Icons.Default.Info,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.tertiary
+                        )
+
+                        Text(text = "About",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.tertiary
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.weight(1f))
+
                 IconButton(onClick = {
                     activity.finish()
                 },

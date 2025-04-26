@@ -31,6 +31,7 @@ import com.nima.guessthatpokemon.PokemonForGameQuery
 import com.nima.guessthatpokemon.client.apolloClient
 import com.nima.guessthatpokemon.components.*
 import com.nima.guessthatpokemon.type.*
+import com.nima.guessthatpokemon.util.Constants
 import com.nima.guessthatpokemon.viewmodels.PokemonGameViewModel
 import kotlinx.coroutines.launch
 import java.security.cert.PKIXRevocationChecker.Option
@@ -77,16 +78,39 @@ fun GameScreen(
                         Optional.present(Pokemon_v2_language_bool_exp(name = Optional.present(String_comparison_exp(_eq = Optional.present(lang)))))
                     )
                     ),
-                    generation = Optional.present(Pokemon_v2_pokemonspecies_bool_exp(
-                        pokemon_v2_generation = Optional.present(
-                            Pokemon_v2_generation_bool_exp(
-                                name = Optional.present(
-                                    String_comparison_exp(_eq =
-                                Optional.present(generation))
+                    generation = if (generation != null) Optional.present(Pokemon_v2_pokemonspecies_bool_exp(
+                        _and = Optional.present(listOf(
+                            Pokemon_v2_pokemonspecies_bool_exp(
+                                pokemon_v2_generation = Optional.present(
+                                    Pokemon_v2_generation_bool_exp(
+                                        name = Optional.present(
+                                            String_comparison_exp(_eq =
+                                            Optional.present(generation))
+                                        )
+                                    )
+                                )
+                            ),
+                            Pokemon_v2_pokemonspecies_bool_exp(
+                                id = Optional.present(
+                                    Int_comparison_exp(
+                                         _in = Optional.present(
+                                            Constants.giveRandomIds(generation, lang!!)
+                                        )
+                                    )
                                 )
                             )
+                        )),
+                    )) else Optional.present(
+                        Pokemon_v2_pokemonspecies_bool_exp(
+                        id = Optional.present(
+                            Int_comparison_exp(
+                            _in = Optional.present(
+                                Constants.giveRandomIds(null, lang!!)
+                            )
                         )
-                    ))
+                        )
+                    )
+                    )
                 )).execute()
             }
         }
@@ -122,6 +146,8 @@ fun GameScreen(
                         }
                         val pokemonName =
                             pokemonList!!.data?.pokemon_v2_pokemonspecies!![pokemonListIndex].pokemon_v2_pokemonspeciesnames[0].name
+
+//                        Log.d("LOL", "GameScreen: $pokemonName")
 
                         val pokemonImageLink =
                             "https://raw.githubusercontent.com/PokeAPI/" +
@@ -180,7 +206,7 @@ fun GameScreen(
                         ElevatedCard(
                             modifier = Modifier
                                 .wrapContentSize()
-                                .padding(32.dp),
+                                .padding(start = 32.dp, end = 32.dp, bottom = 32.dp, top = 16.dp),
                             shape = RoundedCornerShape(10.dp),
                             colors = CardDefaults.elevatedCardColors(
                                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
@@ -194,9 +220,25 @@ fun GameScreen(
                                 verticalArrangement = Arrangement.Top,
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(start = 8.dp, end = 8.dp),
+                                    horizontalArrangement = Arrangement.End,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    TextButtonComponent(
+                                        text = "Skip",
+                                        style = MaterialTheme.typography.bodyMedium)
+                                    {
+                                        chances = 3
+                                        goNext = true
+                                        pokemonImageTint.value = null
+                                    }
+                                }
                                 OnlineImageView(
                                     colorFilter = pokemonImageTint.value,
-                                    modifier = Modifier.padding(vertical = 32.dp, horizontal = 32.dp),
+                                    modifier = Modifier.padding(top = 8.dp, start = 32.dp, end = 32.dp, bottom = 32.dp),
                                     imageLink = pokemonImageLink
                                 )
                                 Row(
@@ -250,7 +292,7 @@ fun GameScreen(
 
                                 ButtonComponent(
                                     modifier = Modifier
-                                        .padding(bottom = 32.dp, top = 16.dp)
+                                        .padding(bottom = 8.dp, top = 16.dp)
                                         .fillMaxWidth(),
                                     text = if (goNext || chances == 3) "Next" else "Submit",
                                     shape = AbsoluteRoundedCornerShape(

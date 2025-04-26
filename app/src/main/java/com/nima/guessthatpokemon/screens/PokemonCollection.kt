@@ -159,7 +159,7 @@ fun PokemonCollection(
                                                         }
                                                         Badge(
                                                             containerColor = Constants.getTypeColor(
-                                                                item.types[0].type.name
+                                                                item.types[1].type.name
                                                             ),
                                                             contentColor = Color.White
                                                         ) {
@@ -192,7 +192,7 @@ fun PokemonCollection(
                                                         }
                                                         Badge(
                                                             containerColor = Constants.getTypeColor(
-                                                                item.types[0].type.name
+                                                                item.types[1].type.name
                                                             ),
                                                             contentColor = Color.White
                                                         ) {
@@ -210,7 +210,7 @@ fun PokemonCollection(
                                                     ) {
                                                         Badge(
                                                             containerColor = Constants.getTypeColor(
-                                                                item.types[0].type.name
+                                                                item.types[2].type.name
                                                             ),
                                                             contentColor = Color.White
                                                         ) {
