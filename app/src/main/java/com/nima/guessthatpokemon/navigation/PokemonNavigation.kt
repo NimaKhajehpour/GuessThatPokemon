@@ -1,13 +1,13 @@
 package com.nima.guessthatpokemon.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.nima.guessthatpokemon.screens.*
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun PokemonNavigation() {
@@ -25,13 +25,13 @@ fun PokemonNavigation() {
                 navArgument(name = "gen"){type = NavType.StringType},
             )
         ){
-            GameScreen(navController = navController, viewModel = hiltViewModel(),
+            GameScreen(navController = navController, viewModel = koinViewModel(),
                 lang = it.arguments?.getString("lang"),
                 gen = it.arguments?.getString("gen"),
             )
         }
         composable(PokemonScreens.CollectionScreen.name){
-            PokemonCollection(navController = navController)
+            PokemonCollection(navController = navController, koinViewModel())
 
         }
         composable(PokemonScreens.DetailScreen.name+"/{id}",
@@ -41,7 +41,7 @@ fun PokemonNavigation() {
                 }
             )
         ){
-            DetailScreen(navController = navController,
+            DetailScreen(navController = navController, koinViewModel(),
                 pokemonId = it.arguments?.getInt("id")
             )
         }

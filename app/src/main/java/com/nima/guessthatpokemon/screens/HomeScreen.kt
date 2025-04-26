@@ -1,6 +1,7 @@
 package com.nima.guessthatpokemon.screens
 
 import android.app.Activity
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
@@ -33,7 +34,7 @@ fun HomeScreen(
     navController: NavController
 ) {
 
-    val activity = LocalContext.current as Activity
+    val activity = LocalActivity.current
 
     val context = LocalContext.current
 
@@ -268,7 +269,9 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.weight(1f))
 
                 IconButton(onClick = {
-                    activity.finish()
+                    if (activity != null) {
+                        activity.finish()
+                    }
                 },
                     modifier = Modifier.size(48.dp)
                 ) {

@@ -1,5 +1,5 @@
 [versions]
-datastore = "1.1.5"
+datastore = "1.0.0"
 coroutine-core = "1.6.4"
 apolo-runtime = "3.7.3"
 lifecyle = "2.8.7"

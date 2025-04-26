@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.nima.guessthatpokemon.R
 import com.nima.guessthatpokemon.components.*
@@ -27,10 +26,9 @@ import kotlinx.coroutines.runBlocking
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PokemonCollection(
-    navController: NavController
+    navController: NavController,
+    viewModel: PokemonListViewModel
 ) {
-
-    val viewModel: PokemonListViewModel = hiltViewModel()
 
     val pokemons = viewModel.pokemonList.collectAsState().value
 

@@ -24,7 +24,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.nima.guessthatpokemon.R
 import com.nima.guessthatpokemon.components.LoadingDialog
@@ -40,9 +39,9 @@ import com.nima.guessthatpokemon.viewmodels.DetailScreenViewModel
 @Composable
 fun DetailScreen (
     navController: NavController,
+    viewModel: DetailScreenViewModel,
     pokemonId: Int?
 ){
-    val viewModel: DetailScreenViewModel = hiltViewModel()
 
     val pokemon = produceState<Pokemon?>(initialValue = null){
         value = viewModel.getPokemonById(pokemonId!!)

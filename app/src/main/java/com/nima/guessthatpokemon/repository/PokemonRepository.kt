@@ -10,9 +10,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flowOn
-import javax.inject.Inject
 
-class PokemonRepository @Inject constructor(private val api: PokemonApi, private val dao: PokemonDao) {
+class PokemonRepository (private val api: PokemonApi, private val dao: PokemonDao) {
 
     private var pokemonList: MutableList<Pokemon?> = mutableListOf()
 

@@ -17,10 +17,7 @@ import androidx.datastore.dataStore
 import androidx.datastore.dataStoreFile
 import com.nima.guessthatpokemon.navigation.PokemonNavigation
 import com.nima.guessthatpokemon.ui.theme.GuessThatPokemonTheme
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.Flow
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -6,9 +6,7 @@ import com.nima.guessthatpokemon.model.pokemon.Pokemon
 import com.nima.guessthatpokemon.model.type.PokemonType
 import retrofit2.http.GET
 import retrofit2.http.Path
-import javax.inject.Singleton
 
-@Singleton
 interface PokemonApi {
 
     @GET("pokemon/{id}")

@@ -7,43 +7,49 @@ import com.nima.guessthatpokemon.database.PokemonDatabase
 import com.nima.guessthatpokemon.network.PokemonApi
 import com.nima.guessthatpokemon.repository.PokemonRepository
 import com.nima.guessthatpokemon.util.Constants
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
+import com.nima.guessthatpokemon.viewmodels.DetailScreenViewModel
+import com.nima.guessthatpokemon.viewmodels.PokemonGameViewModel
+import com.nima.guessthatpokemon.viewmodels.PokemonListViewModel
+import org.koin.android.ext.koin.androidApplication
+import org.koin.core.module.dsl.viewModel
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
-object Modules {
+val module = module{
 
-    @Provides
-    @Singleton
-    fun providePokemonRepository(api: PokemonApi, dao: PokemonDao)
-        = PokemonRepository(api = api, dao = dao)
-
-    @Provides
-    @Singleton
-    fun providePokemonApi(): PokemonApi =
+    single {
         Retrofit.Builder().baseUrl(Constants.baseUrl)
             .addConverterFactory(
                 GsonConverterFactory.create()
             ).build().create(PokemonApi::class.java)
+    }
 
-    @Singleton
-    @Provides
-    fun providePokemonDao(pokemonDatabase: PokemonDatabase): PokemonDao
-            = pokemonDatabase.PokemonDao()
+    single {
+        Room.databaseBuilder(
+                context = androidApplication(),
+                PokemonDatabase::class.java,
+                "PokemonDatabase"
+            ).fallbackToDestructiveMigration(false).build()
+    }
 
-    @Singleton
-    @Provides
-    fun providePokemonDatabase(@ApplicationContext context: Context): PokemonDatabase
-            = Room.databaseBuilder(
-        context,
-        PokemonDatabase::class.java,
-        "PokemonDatabase"
-    ).fallbackToDestructiveMigration().build()
+    single {
+        val database = get<PokemonDatabase>()
+        database.PokemonDao()
+    }
+
+    single {
+        PokemonRepository(get(), get())
+    }
+
+    viewModel {
+        PokemonListViewModel(get())
+    }
+    viewModel {
+        PokemonGameViewModel(get())
+    }
+    viewModel {
+        DetailScreenViewModel(get())
+    }
+
 }

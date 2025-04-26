@@ -8,12 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nima.guessthatpokemon.model.pokemon.Pokemon
 import com.nima.guessthatpokemon.repository.PokemonRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class PokemonGameViewModel @Inject constructor(private val repository: PokemonRepository)
+class PokemonGameViewModel (private val repository: PokemonRepository)
     : ViewModel() {
 
     var pokemonIndex: MutableState<List<Int>>? = null

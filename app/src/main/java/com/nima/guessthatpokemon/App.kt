@@ -1,13 +1,18 @@
 package com.nima.guessthatpokemon
 
 import android.app.Application
-import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
-import dagger.hilt.android.HiltAndroidApp
+import com.nima.guessthatpokemon.di.module
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
-@HiltAndroidApp
 class App: Application() {
-
+    override fun onCreate() {
+        super.onCreate()
+        startKoin{
+            androidLogger()
+            androidContext(this@App)
+            modules(module)
+        }
+    }
 }

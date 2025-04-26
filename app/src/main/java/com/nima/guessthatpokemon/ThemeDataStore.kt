@@ -13,7 +13,7 @@ class ThemeDataStore(private val context: Context) {
     companion object{
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("theme")
 
-        val themeKey = booleanPreferencesKey("app_theme")
+        val themeKey = booleanPreferencesKey("theme_key")
     }
 
     val getTheme: Flow<Boolean?> = context.dataStore.data

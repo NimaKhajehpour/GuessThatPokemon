@@ -20,7 +20,7 @@ fun PokemonTextField (
     value: String = "",
     isError: Boolean = false,
     supportingText: String = "",
-    textFieldColors: TextFieldColors = TextFieldDefaults.textFieldColors(),
+    textFieldColors: TextFieldColors = TextFieldDefaults.colors(),
     trailingIcon: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
