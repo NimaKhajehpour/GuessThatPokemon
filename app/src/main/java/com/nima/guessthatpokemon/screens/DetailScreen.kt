@@ -20,7 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.modifier.modifierLocalProvider
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -43,6 +45,8 @@ fun DetailScreen (
     pokemonId: Int?
 ){
 
+    val context = LocalContext.current
+
     val pokemon = produceState<Pokemon?>(initialValue = null){
         value = viewModel.getPokemonById(pokemonId!!)
     }.value
@@ -54,7 +58,8 @@ fun DetailScreen (
     ){
         AnimatedVisibility (pokemon == null) {
             LoadingDialog(
-                text = "Loading Pokemon Details")
+                text = stringResource(R.string.loading_pokemon_details)
+            )
         }
         AnimatedVisibility(pokemon != null) {
             if (pokemon != null){
@@ -137,7 +142,10 @@ fun DetailScreen (
                                             modifier = Modifier.padding(bottom = 10.dp)
                                         )
                                         Text(
-                                            text = "Height: ${pokemon.height * 10}cm",
+                                            text = stringResource(
+                                                R.string.height_cm,
+                                                pokemon.height * 10
+                                            ),
                                             style = MaterialTheme.typography.bodySmall,
                                         )
 
@@ -160,7 +168,10 @@ fun DetailScreen (
                                         )
 
                                         Text(
-                                            text = "Weight: ${pokemon.weight / 10}kg",
+                                            text = stringResource(
+                                                R.string.weight_kg,
+                                                pokemon.weight / 10
+                                            ),
                                             style = MaterialTheme.typography.bodySmall,
                                         )
 
@@ -246,8 +257,12 @@ fun DetailScreen (
                                                             selectedIndex = i * 2 - 2
                                                             abilityText =
                                                                 pokemonAbility[selectedIndex].flavor_text_entries.filter {
-                                                                    it.language.name == "en"
-                                                                }[0].flavor_text ?: "No Description"
+                                                                    it.language.name == context.getString(
+                                                                        R.string.en
+                                                                    )
+                                                                }[0].flavor_text ?: context.getString(
+                                                                    R.string.no_description
+                                                                )
                                                             abilityDetails = true
                                                         },
                                                         modifier = Modifier.size(24.dp),
@@ -274,9 +289,9 @@ fun DetailScreen (
                                                                 selectedIndex = i * 2 - 1
                                                                 abilityText =
                                                                     pokemonAbility[selectedIndex].flavor_text_entries.filter {
-                                                                        it.language.name == "en"
+                                                                        it.language.name == context.getString(R.string.en)
                                                                     }[0].flavor_text
-                                                                        ?: "No Description"
+                                                                        ?: context.getString(R.string.no_description)
                                                                 abilityDetails = true
                                                             },
                                                             modifier = Modifier.size(24.dp),

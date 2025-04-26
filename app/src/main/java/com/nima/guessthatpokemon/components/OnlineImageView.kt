@@ -16,7 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
+import com.nima.guessthatpokemon.R
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -35,7 +37,7 @@ fun OnlineImageView(
         propagateMinConstraints = true
     ) {
         AsyncImage(model = imageLink,
-            contentDescription = "Image",
+            contentDescription = stringResource(R.string.image),
             modifier = modifier,
             alignment = Alignment.Center,
             contentScale = ContentScale.Fit,

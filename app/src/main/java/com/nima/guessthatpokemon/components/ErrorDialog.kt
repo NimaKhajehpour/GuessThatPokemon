@@ -9,7 +9,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.nima.guessthatpokemon.R
 
 @Composable
 fun ErrorDialog(
@@ -28,12 +30,12 @@ fun ErrorDialog(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Loading Failed",
+            Text(text = stringResource(R.string.loading_failed),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
             ButtonComponent(
-                text = "Go Back",
+                text = stringResource(R.string.go_back),
                 shape = RoundedCornerShape(5.dp)
             ){
                 onClick()

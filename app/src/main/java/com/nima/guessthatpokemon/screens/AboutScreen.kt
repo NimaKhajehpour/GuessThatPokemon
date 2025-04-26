@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -32,7 +34,7 @@ fun AboutScreen(
         navController.popBackStack()
     }
 
-    val context = LocalContext.current as Activity
+    val context = LocalActivity.current
 
     Column(
         modifier = Modifier
@@ -43,7 +45,7 @@ fun AboutScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TitleImage()
-        Text(text = "GuessThatPokemon V${BuildConfig.VERSION_NAME}",
+        Text(text = stringResource(R.string.guessthatpokemon_v, BuildConfig.VERSION_NAME),
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 16.dp)
@@ -56,20 +58,20 @@ fun AboutScreen(
             horizontalArrangement = Arrangement.Center
         ){
             Text(
-                text = "A simple game of",
+                text = stringResource(R.string.a_simple_game_of),
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.Light,
             )
             TextButton(onClick = {
                 val browserIntent = Intent(Intent.ACTION_VIEW)
                 browserIntent.data = Uri.parse("https://www.github.com/NimaKhajehpour/GuessThatPokemon")
-                context.startActivity(browserIntent)
+                context?.startActivity(browserIntent)
             },
                 contentPadding = PaddingValues(4.dp),
                 colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.tertiary)
             ) {
                 Text(
-                    text = "GuessThatPokemon",
+                    text = stringResource(R.string.guessthatpokemon),
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.Light,
                 )
@@ -81,7 +83,7 @@ fun AboutScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "Made By:",
+            Text(text = stringResource(R.string.made_by),
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(end = 10.dp)
@@ -90,7 +92,7 @@ fun AboutScreen(
             Button(onClick = { 
                 val browserIntent = Intent(Intent.ACTION_VIEW)
                 browserIntent.data = Uri.parse("https://www.github.com/NimaKhajehpour")
-                context.startActivity(browserIntent)
+                context?.startActivity(browserIntent)
             },
                 shape = RoundedCornerShape(5.dp),
                 contentPadding = PaddingValues(8.dp),
@@ -106,14 +108,14 @@ fun AboutScreen(
                         .padding(end = 5.dp),
                     colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onTertiaryContainer)
                 )
-                Text(text = "Nima Khajehpour")
+                Text(text = stringResource(R.string.nima_khajehpour))
             }
         }
 
         Button(onClick = {
             val browserIntent = Intent(Intent.ACTION_VIEW)
             browserIntent.data = Uri.parse("https://www.github.com/NimaKhajehpour/GuessThatPokemon/issues")
-            context.startActivity(browserIntent)
+            context?.startActivity(browserIntent)
         },
             shape = RoundedCornerShape(5.dp),
             contentPadding = PaddingValues(8.dp),
@@ -125,7 +127,7 @@ fun AboutScreen(
                     .size(32.dp)
                     .padding(end = 5.dp)
             )
-            Text(text = "Report a Bug/Request Features")
+            Text(text = stringResource(R.string.report))
         }
     }
 }

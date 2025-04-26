@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.nima.guessthatpokemon.R
@@ -75,12 +76,12 @@ fun PokemonCollection(
                             painter = painterResource(id = R.drawable.surprised_pikachu)
                         )
                         Text(
-                            text = "No Pokemons Yet",
+                            text = stringResource(R.string.no_pokemons_yet),
                             style = MaterialTheme.typography.labelLarge,
                             modifier = Modifier.padding(vertical = 8.dp)
                         )
                         Text(
-                            text = "Maybe You Should Guess The Pokemons Better",
+                            text = stringResource(R.string.mocking_prompt),
                             style = MaterialTheme.typography.labelSmall,
                             modifier = Modifier.padding(vertical = 8.dp)
                         )
@@ -231,7 +232,7 @@ fun PokemonCollection(
                                     .padding(horizontal = 32.dp, vertical = 16.dp)
                                     .align(Alignment.BottomCenter),
                                 enabled = loadDone != fullLoads + 1,
-                                text = "Load More",
+                                text = stringResource(R.string.load_more),
                                 shape = null,
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = MaterialTheme.colorScheme.tertiaryContainer,
@@ -263,19 +264,19 @@ fun PokemonCollection(
                         }
                     }
                 } else {
-                    LoadingDialog(text = "Loading Pokemon Data")
+                    LoadingDialog(text = stringResource(R.string.loading_pokemon_data))
                 }
             }else{
                 TitleImage(
                     painter = painterResource(id = R.drawable.surprised_pikachu)
                 )
                 Text(
-                    text = "No Pokemons Yet",
+                    text = stringResource(R.string.no_pokemons_yet),
                     style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
                 Text(
-                    text = "Maybe You Should Guess The Pokemons Better",
+                    text = stringResource(R.string.mocking_prompt),
                     style = MaterialTheme.typography.labelSmall,
                     modifier = Modifier.padding(vertical = 8.dp)
                 )

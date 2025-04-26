@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -50,11 +51,11 @@ fun HomeScreen(
     val scope = rememberCoroutineScope()
 
     var selectedLanguage by remember {
-        mutableStateOf("en")
+        mutableStateOf(context.getString(R.string.en))
     }
 
     var selectedGeneration by remember {
-        mutableStateOf("All")
+        mutableStateOf(context.getString(R.string.all))
     }
 
     Surface(
@@ -90,9 +91,7 @@ fun HomeScreen(
                                }
 
 
-                               Text(text = "With this version of the game you have the option to change the language of the names on Pokemons and the " +
-                                       "Generation of them so that they are filtered as you like. Although the problem with the language selection is that it is not complete on languages other than English " +
-                                       "and you might not have a complete GuessThatPokemon experience!",
+                               Text(text = stringResource(R.string.start_game_prompt),
                                    modifier = Modifier.padding(bottom = 12.dp),
                                    textAlign = TextAlign.Center
                                )
@@ -106,7 +105,7 @@ fun HomeScreen(
                                        modifier = Modifier.menuAnchor(),
                                        readOnly = true,
                                        label = {
-                                           Text(text = "Language")
+                                           Text(text = stringResource(R.string.language))
                                        },
                                        trailingIcon = {
                                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = languageMenuExpanded)
@@ -139,7 +138,7 @@ fun HomeScreen(
                                        modifier = Modifier.menuAnchor(),
                                        readOnly = true,
                                        label = {
-                                           Text(text = "Generation")
+                                           Text(text = stringResource(R.string.generation))
                                        },
                                        trailingIcon = {
                                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = generationMenuExpanded)
@@ -164,7 +163,7 @@ fun HomeScreen(
                            }
                     },
                     title = {
-                        Text(text = "Game Settings")
+                        Text(text = stringResource(R.string.game_settings))
                     },
                     icon = {
                         Icon(imageVector = Icons.Default.Settings, contentDescription = null)
@@ -177,14 +176,14 @@ fun HomeScreen(
                             navController.navigate(PokemonScreens.GameScreen.name+"/$selectedLanguage/$selectedGeneration"
                             )
                         }) {
-                            Text(text = "Start Game")
+                            Text(text = stringResource(R.string.start_game))
                         }
                     },
                     dismissButton = {
                         TextButton(onClick = {
                             showSettingDialog = false
                         }) {
-                            Text(text = "Cancel")
+                            Text(text = stringResource(R.string.cancel))
                         }
                     }
                 )
@@ -215,7 +214,7 @@ fun HomeScreen(
                                         contentDescription = null,
                                         tint = MaterialTheme.colorScheme.tertiary
                                     )
-                                    Text(text = "Light",
+                                    Text(text = stringResource(R.string.light),
                                         style = MaterialTheme.typography.labelSmall,
                                         color = MaterialTheme.colorScheme.tertiary
                                     )
@@ -231,7 +230,7 @@ fun HomeScreen(
                                     tint = MaterialTheme.colorScheme.tertiary
                                 )
 
-                                Text(text = "Dark",
+                                Text(text = stringResource(R.string.dark),
                                     style = MaterialTheme.typography.labelSmall,
                                     color = MaterialTheme.colorScheme.tertiary
                                 )
@@ -259,7 +258,7 @@ fun HomeScreen(
                             tint = MaterialTheme.colorScheme.tertiary
                         )
 
-                        Text(text = "About",
+                        Text(text = stringResource(R.string.about),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.tertiary
                         )
@@ -285,7 +284,7 @@ fun HomeScreen(
                             tint = MaterialTheme.colorScheme.tertiary
                         )
 
-                        Text(text = "Exit",
+                        Text(text = stringResource(R.string.exit),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.tertiary
                         )
@@ -295,7 +294,7 @@ fun HomeScreen(
 
             TitleImage()
 
-            Text(text = "Guess That Pokemon",
+            Text(text = stringResource(R.string.guess_that_pokemon),
                 modifier = Modifier.padding(horizontal = 32.dp),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
@@ -314,7 +313,7 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .padding(start = 32.dp, end = 32.dp, bottom = 8.dp),
                 enabled = true,
-                text = "Start Game"
+                text = stringResource(R.string.start_game)
             ){
                 showSettingDialog = true
             }
@@ -324,7 +323,7 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .padding(start = 32.dp, end = 32.dp, bottom = 8.dp),
                 enabled = true,
-                text = "Your Collection"
+                text = stringResource(R.string.your_collection)
             ){
                 // Go to collections
                 navController.navigate(PokemonScreens.CollectionScreen.name)

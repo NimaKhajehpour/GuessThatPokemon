@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -28,6 +29,7 @@ import androidx.navigation.NavController
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
 import com.nima.guessthatpokemon.PokemonForGameQuery
+import com.nima.guessthatpokemon.R
 import com.nima.guessthatpokemon.client.apolloClient
 import com.nima.guessthatpokemon.components.*
 import com.nima.guessthatpokemon.type.*
@@ -50,7 +52,7 @@ fun GameScreen(
     val generation: String? by remember {
        mutableStateOf(
            when(gen){
-               "All" -> null
+               context.getString(R.string.all) -> null
                "1" -> "generation-i"
                "2" -> "generation-ii"
                "3" -> "generation-iii"
@@ -194,7 +196,7 @@ fun GameScreen(
                                     .fillMaxWidth(),
                                 progress = (progress * 100 / 20f) / 100f
                             )
-                            Text(text = "$progress/20",
+                            Text(text = stringResource(R.string.progressOf_20, progress),
                                 modifier = Modifier.align(Alignment.Center),
                                 textAlign = TextAlign.Center,
                                 style = MaterialTheme.typography.bodyMedium,
@@ -228,7 +230,7 @@ fun GameScreen(
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     TextButtonComponent(
-                                        text = "Skip",
+                                        text = stringResource(R.string.skip),
                                         style = MaterialTheme.typography.bodyMedium)
                                     {
                                         chances = 3
@@ -270,7 +272,7 @@ fun GameScreen(
                                     )
                                     textFieldEnabled = false
                                 }
-                                Text(text = "Guess That Pokemon",
+                                Text(text = stringResource(R.string.guess_that_pokemon),
                                     style = MaterialTheme.typography.bodyLarge,
                                     fontWeight = FontWeight.Bold,
                                     modifier = Modifier.padding(bottom = 16.dp)
@@ -284,7 +286,7 @@ fun GameScreen(
                                     singleLine = true,
                                     value = textFieldValue,
                                     label = {
-                                        Text(text = "Pokemon Name")
+                                        Text(text = stringResource(R.string.pokemon_name))
                                     }
                                 ){
                                     textFieldValue = it
@@ -294,7 +296,9 @@ fun GameScreen(
                                     modifier = Modifier
                                         .padding(bottom = 8.dp, top = 16.dp)
                                         .fillMaxWidth(),
-                                    text = if (goNext || chances == 3) "Next" else "Submit",
+                                    text = if (goNext || chances == 3) stringResource(R.string.next) else stringResource(
+                                        R.string.submit
+                                    ),
                                     shape = AbsoluteRoundedCornerShape(
                                         bottomLeft = 15.dp, bottomRight = 10.dp
                                     ),
@@ -306,7 +310,8 @@ fun GameScreen(
                                                 if (textFieldValue.trim()
                                                         .equals(pokemonName, ignoreCase = true)
                                                 ) {
-                                                    Toast.makeText(context, "Pokemon Captured", Toast.LENGTH_SHORT)
+                                                    Toast.makeText(context,
+                                                        context.getString(R.string.pokemon_captured), Toast.LENGTH_SHORT)
                                                         .show()
                                                     val pokemon =
                                                         com.nima.guessthatpokemon.model.Pokemon(pokemonList?.data?.pokemon_v2_pokemonspecies!![pokemonListIndex].id)
