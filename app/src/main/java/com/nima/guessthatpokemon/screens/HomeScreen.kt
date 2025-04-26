@@ -210,11 +210,11 @@ fun HomeScreen(
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ){
                                     Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_light_mode_24),
+                                        painter = painterResource(id = R.drawable.ic_baseline_dark_mode_24),
                                         contentDescription = null,
                                         tint = MaterialTheme.colorScheme.tertiary
                                     )
-                                    Text(text = stringResource(R.string.light),
+                                    Text(text = stringResource(R.string.dark),
                                         style = MaterialTheme.typography.labelSmall,
                                         color = MaterialTheme.colorScheme.tertiary
                                     )
@@ -225,12 +225,12 @@ fun HomeScreen(
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ){
                                 Icon(
-                                    painter = painterResource(id = R.drawable.ic_baseline_dark_mode_24),
+                                    painter = painterResource(id = R.drawable.ic_baseline_light_mode_24),
                                     contentDescription = null,
                                     tint = MaterialTheme.colorScheme.tertiary
                                 )
 
-                                Text(text = stringResource(R.string.dark),
+                                Text(text = stringResource(R.string.light),
                                     style = MaterialTheme.typography.labelSmall,
                                     color = MaterialTheme.colorScheme.tertiary
                                 )

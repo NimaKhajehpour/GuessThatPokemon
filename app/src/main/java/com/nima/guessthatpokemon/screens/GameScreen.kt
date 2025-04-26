@@ -266,14 +266,14 @@ fun GameScreen(
                                 }
                                 if (chances == 3){
                                     Text(text = pokemonName,
-                                        style = MaterialTheme.typography.bodySmall,
+                                        style = MaterialTheme.typography.titleLarge,
                                         fontWeight = FontWeight.Bold,
-                                        modifier = Modifier.padding(bottom = 8.dp)
+                                        modifier = Modifier.padding(bottom = 16.dp)
                                     )
                                     textFieldEnabled = false
                                 }
                                 Text(text = stringResource(R.string.guess_that_pokemon),
-                                    style = MaterialTheme.typography.bodyLarge,
+                                    style = MaterialTheme.typography.titleLarge,
                                     fontWeight = FontWeight.Bold,
                                     modifier = Modifier.padding(bottom = 16.dp)
                                 )
@@ -302,6 +302,7 @@ fun GameScreen(
                                     shape = AbsoluteRoundedCornerShape(
                                         bottomLeft = 15.dp, bottomRight = 10.dp
                                     ),
+                                    enabled = textFieldValue.isNotBlank()
                                 ){
                                     // game logic
                                     if (!goNext){
