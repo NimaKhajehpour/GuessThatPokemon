@@ -11,6 +11,11 @@ Or download the latest APK from the [Releases Section](https://github.com/NimaKh
 
 For easier communication with me (the developer) come hang out in my [telegram group](https://t.me/+bwYZeynt5JNkMDdk)
 
+## Help Translate the app
+<a href="https://hosted.weblate.org/engage/guessthatpokemon/">
+<img src="https://hosted.weblate.org/widget/guessthatpokemon/strings-xml/open-graph.png" alt="Translation status" />
+</a>
+
 ## Donate Crypto to the Creator
 
 ![IMG_20230604_180149_164 1](https://github.com/NimaKhajehpour/GuessThatPokemon/assets/123193175/f6ff8995-ac7c-410d-ad0e-29d4c24a4533)
