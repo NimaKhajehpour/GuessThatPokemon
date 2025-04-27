@@ -41,7 +41,7 @@ fun PokemonNavigation() {
                 }
             )
         ){
-            DetailScreen(navController = navController, koinViewModel(),
+            DetailScreen(navController = navController,
                 pokemonId = it.arguments?.getInt("id")
             )
         }

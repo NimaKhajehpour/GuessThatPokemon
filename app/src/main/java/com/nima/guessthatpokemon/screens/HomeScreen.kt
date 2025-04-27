@@ -55,7 +55,7 @@ fun HomeScreen(
     }
 
     var selectedGeneration by remember {
-        mutableStateOf(context.getString(R.string.all))
+        mutableStateOf("1")
     }
 
     Surface(
@@ -148,7 +148,7 @@ fun HomeScreen(
                                    ExposedDropdownMenu(
                                        expanded = generationMenuExpanded,
                                        onDismissRequest = { generationMenuExpanded = false }) {
-                                       listOf("All", "1", "2", "3", "4", "5", "6", "7", "8", "9").forEach{
+                                       listOf("1", "2", "3", "4", "5", "6", "7", "8", "9").forEach{
                                            DropdownMenuItem(
                                                text = { Text(text = it) },
                                                onClick = {

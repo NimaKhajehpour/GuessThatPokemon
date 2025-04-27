@@ -84,12 +84,6 @@ dependencies {
     //navigation
     implementation(libs.navigation)
 
-    //Retrofit
-    implementation (libs.retrofit)
-
-    //Gson
-    implementation (libs.gson)
-
     //Coil
     implementation(libs.coil)
 

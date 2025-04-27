@@ -1,12 +1,10 @@
-query PokemonCollectionList($limit: Int, $where: pokemon_v2_pokemonspecies_bool_exp){
-    pokemon_v2_pokemonspecies (limit: $limit, where: $where) {
+query PokemonListForCollection($ids: [Int!]) {
+    pokemon_v2_pokemon(where: {id: {_in: $ids}}, distinct_on: id) {
+        name
         id
-        pokemon_v2_pokemons {
-            name
-            pokemon_v2_pokemontypes {
-                pokemon_v2_type {
-                    name
-                }
+        pokemon_v2_pokemontypes {
+            pokemon_v2_type {
+                name
             }
         }
     }

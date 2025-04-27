@@ -5,7 +5,6 @@ apolo-runtime = "3.7.3"
 lifecyle = "2.8.7"
 navigation = "2.8.9"
 koin = "4.0.0"
-retrofit = "2.9.0"
 coil = "2.2.2"
 room = "2.7.1"
 core-ktx = "1.16.0"
@@ -27,8 +26,6 @@ lifecycle-runtime = {group = "androidx.lifecycle", name = "lifecycle-runtime-ktx
 navigation = {group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
 koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
 koin-androidx-navigation = { group = "io.insert-koin", name = "koin-androidx-compose-navigation", version.ref = "koin" }
-retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
-gson = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit"}
 coil = {group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }

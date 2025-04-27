@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nima.guessthatpokemon.model.pokemon.Pokemon
 import com.nima.guessthatpokemon.repository.PokemonRepository
 import kotlinx.coroutines.launch
 

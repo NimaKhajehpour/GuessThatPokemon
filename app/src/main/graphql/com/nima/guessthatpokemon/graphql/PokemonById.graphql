@@ -1,26 +1,37 @@
-query PokemonById($language: pokemon_v2_abilityeffecttext_bool_exp){
-    pokemon_v2_pokemonspecies {
+query PokemonById($id: Int, $language: String = "en") {
+    pokemon_v2_pokemon(where: {id: {_eq: $id}}) {
         id
-        pokemon_v2_pokemons {
-            name
-            pokemon_v2_pokemontypes {
-                pokemon_v2_type {
-                    name
+        height
+        pokemon_v2_pokemonabilities {
+            pokemon_v2_ability {
+                name
+                pokemon_v2_abilityflavortexts(
+                    where: {flavor_text: {}, pokemon_v2_language: {name: {_eq: $language}}}
+                    limit: 1
+                ) {
+                    flavor_text
                 }
             }
-            height
-            weight
-            pokemon_v2_pokemonstats {
-                base_stat
+        }
+        pokemon_v2_pokemontypes {
+            pokemon_v2_type {
+                name
+                id
             }
-            pokemon_v2_pokemonabilities {
-                pokemon_v2_ability {
-                    name
-                    pokemon_v2_abilityeffecttexts(where: $language) {
-                        effect
-                    }
-                }
+        }
+        weight
+        pokemon_v2_pokemonspecy {
+            pokemon_v2_pokemonspeciesnames(
+                where: {pokemon_v2_language: {name: {_eq: $language}}}
+            ) {
+                name
             }
+        }
+        pokemon_v2_pokemonstats {
+            pokemon_v2_stat {
+                name
+            }
+            base_stat
         }
     }
 }

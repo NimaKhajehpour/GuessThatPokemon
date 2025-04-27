@@ -1,0 +1,10 @@
+query TypeWeaknessQuery($_in: [Int!]) {
+    pokemon_v2_typeefficacy(
+        where: {pokemonV2TypeByTargetTypeId: {id: {_in: $_in}}, damage_factor: {_eq: 200}}
+        order_by: {}
+    ) {
+        pokemon_v2_type {
+            name
+        }
+    }
+}

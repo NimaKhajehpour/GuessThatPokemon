@@ -52,7 +52,6 @@ fun GameScreen(
     val generation: String? by remember {
        mutableStateOf(
            when(gen){
-               context.getString(R.string.all) -> null
                "1" -> "generation-i"
                "2" -> "generation-ii"
                "3" -> "generation-iii"
@@ -76,43 +75,9 @@ fun GameScreen(
         LaunchedEffect(key1 = Unit){
             launch {
                 pokemonList = apolloClient.query(PokemonForGameQuery(
-                    namelanguage = Optional.present(Pokemon_v2_pokemonspeciesname_bool_exp(pokemon_v2_language =
-                        Optional.present(Pokemon_v2_language_bool_exp(name = Optional.present(String_comparison_exp(_eq = Optional.present(lang)))))
-                    )
-                    ),
-                    generation = if (generation != null) Optional.present(Pokemon_v2_pokemonspecies_bool_exp(
-                        _and = Optional.present(listOf(
-                            Pokemon_v2_pokemonspecies_bool_exp(
-                                pokemon_v2_generation = Optional.present(
-                                    Pokemon_v2_generation_bool_exp(
-                                        name = Optional.present(
-                                            String_comparison_exp(_eq =
-                                            Optional.present(generation))
-                                        )
-                                    )
-                                )
-                            ),
-                            Pokemon_v2_pokemonspecies_bool_exp(
-                                id = Optional.present(
-                                    Int_comparison_exp(
-                                         _in = Optional.present(
-                                            Constants.giveRandomIds(generation, lang!!)
-                                        )
-                                    )
-                                )
-                            )
-                        )),
-                    )) else Optional.present(
-                        Pokemon_v2_pokemonspecies_bool_exp(
-                        id = Optional.present(
-                            Int_comparison_exp(
-                            _in = Optional.present(
-                                Constants.giveRandomIds(null, lang!!)
-                            )
-                        )
-                        )
-                    )
-                    )
+                    ids = Optional.present(Constants.giveRandomIds(generation, lang!!)),
+                    generation = if (generation != null) Optional.present(generation) else Optional.present(""),
+                    language = Optional.present(lang)
                 )).execute()
             }
         }
@@ -128,7 +93,7 @@ fun GameScreen(
                 AnimatedVisibility (pokemonList == null || pokemonList?.data == null){
                     LoadingDialog()
                 }
-                AnimatedVisibility (pokemonList != null && pokemonList?.data?.pokemon_v2_pokemonspecies?.size == 0){
+                AnimatedVisibility (pokemonList != null && pokemonList?.data?.pokemon_v2_pokemonspecies!!.isEmpty()){
                     // Could not connect to api
                     ErrorDialog{
                         navController.popBackStack()
@@ -149,7 +114,7 @@ fun GameScreen(
                         val pokemonName =
                             pokemonList!!.data?.pokemon_v2_pokemonspecies!![pokemonListIndex].pokemon_v2_pokemonspeciesnames[0].name
 
-//                        Log.d("LOL", "GameScreen: $pokemonName")
+                        Log.d("LOL", "GameScreen: $pokemonName")
 
                         val pokemonImageLink =
                             "https://raw.githubusercontent.com/PokeAPI/" +
@@ -302,7 +267,7 @@ fun GameScreen(
                                     shape = AbsoluteRoundedCornerShape(
                                         bottomLeft = 15.dp, bottomRight = 10.dp
                                     ),
-                                    enabled = textFieldValue.isNotBlank()
+                                    enabled = textFieldValue.isNotBlank() || goNext || chances == 3
                                 ){
                                     // game logic
                                     if (!goNext){

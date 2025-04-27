@@ -1,8 +1,13 @@
-query PokemonForGame($generation: pokemon_v2_pokemonspecies_bool_exp,
-    $namelanguage: pokemon_v2_pokemonspeciesname_bool_exp){
-    pokemon_v2_pokemonspecies(where: $generation) {
+query PokemonForGame($ids: [Int!], $generation: String = "", $language: String = "") {
+    pokemon_v2_pokemonspecies(
+        distinct_on: id
+        limit: 20
+        where: {id: {_in: $ids}, pokemon_v2_generation: {name: {_eq: $generation}}}
+    ) {
         id
-        pokemon_v2_pokemonspeciesnames(where: $namelanguage) {
+        pokemon_v2_pokemonspeciesnames(
+            where: {pokemon_v2_language: {name: {_eq: $language}}}
+        ) {
             name
         }
     }
