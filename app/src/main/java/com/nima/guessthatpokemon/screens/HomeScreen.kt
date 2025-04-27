@@ -27,6 +27,7 @@ import com.nima.guessthatpokemon.ThemeDataStore
 import com.nima.guessthatpokemon.components.ButtonComponent
 import com.nima.guessthatpokemon.components.TitleImage
 import com.nima.guessthatpokemon.navigation.PokemonScreens
+import com.nima.guessthatpokemon.util.Constants
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
@@ -52,6 +53,10 @@ fun HomeScreen(
 
     var selectedLanguage by remember {
         mutableStateOf(context.getString(R.string.en))
+    }
+
+    var selectedLangToShow by remember {
+        mutableStateOf("English")
     }
 
     var selectedGeneration by remember {
@@ -100,7 +105,7 @@ fun HomeScreen(
                                    expanded = languageMenuExpanded,
                                    onExpandedChange = {languageMenuExpanded = !languageMenuExpanded}
                                ) {
-                                   OutlinedTextField(value = selectedLanguage,
+                                   OutlinedTextField(value = selectedLangToShow,
                                        onValueChange = {},
                                        modifier = Modifier.menuAnchor(),
                                        readOnly = true,
@@ -115,11 +120,12 @@ fun HomeScreen(
                                    ExposedDropdownMenu(
                                        expanded = languageMenuExpanded,
                                        onDismissRequest = { languageMenuExpanded = false }) {
-                                       listOf("ja-Hrkt", "roomaji", "ko", "zh-Hant", "fr", "de", "es", "it", "en", "ja", "zh-Hans").forEach{
+                                       Constants.languageNames.forEach{
                                            DropdownMenuItem(
-                                               text = { Text(text = it) },
+                                               text = { Text(text = it.key) },
                                                onClick = {
-                                                   selectedLanguage = it
+                                                   selectedLanguage = it.value
+                                                   selectedLangToShow = it.key
                                                    languageMenuExpanded = false
                                                },
                                                contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding

@@ -32,6 +32,20 @@ object Constants {
         }
     }
 
+    val languageNames = mapOf(
+        "Japanese Kana" to "ja-Hrkt",
+        "Romaji" to "roomaji",
+        "Korean" to "ko",
+        "Chinese Traditional" to "zh-Hant",
+        "French" to "fr",
+        "German" to "de",
+        "Spanish" to "es",
+        "Italian" to "it",
+        "English" to "en",
+        "Japanese" to "ja",
+        "Chinese Simplified" to "zh-Hans"
+    )
+
     const val usdt_address = "0x55Fd62eC2DB8F3f88d3c5825c68ED4DA2AA1F82c"
 
     const val btc_address = "1KUNrUPMZvcrQV6Eio3bSS1GgpCJn4Jk6A"
