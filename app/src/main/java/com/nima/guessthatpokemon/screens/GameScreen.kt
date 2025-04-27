@@ -34,6 +34,7 @@ import com.nima.guessthatpokemon.client.apolloClient
 import com.nima.guessthatpokemon.components.*
 import com.nima.guessthatpokemon.type.*
 import com.nima.guessthatpokemon.util.Constants
+import com.nima.guessthatpokemon.util.Constants.makeNameValid
 import com.nima.guessthatpokemon.viewmodels.PokemonGameViewModel
 import kotlinx.coroutines.launch
 import java.security.cert.PKIXRevocationChecker.Option
@@ -112,7 +113,7 @@ fun GameScreen(
                             mutableStateOf(0)
                         }
                         val pokemonName =
-                            pokemonList!!.data?.pokemon_v2_pokemonspecies!![pokemonListIndex].pokemon_v2_pokemonspeciesnames[0].name
+                            makeNameValid(pokemonList!!.data?.pokemon_v2_pokemonspecies!![pokemonListIndex].pokemon_v2_pokemonspeciesnames[0].name)
 
                         Log.d("LOL", "GameScreen: $pokemonName")
 

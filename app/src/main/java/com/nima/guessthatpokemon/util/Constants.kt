@@ -58,4 +58,16 @@ object Constants {
             else -> emptyList()
         }
     }
+
+    fun makeNameValid(name: String): String{
+        if (name.contains("♂")){
+            return name.replace("♂", "")
+        } else if (name.contains("♀")){
+            return name.replace("♀", "")
+        }else if (name.contains("’")){
+            return name.replace("’", "\'")
+        }
+        return name
+
+    }
 }
