@@ -1,6 +1,7 @@
 package com.nima.guessthatpokemon.screens
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
@@ -53,23 +54,33 @@ fun DetailScreen (
 
     LaunchedEffect(pokemonId != null) {
         if (pokemonId != null){
-            pokemon = apolloClient.query(
-                PokemonByIdQuery(
-                    id = Optional.present(pokemonId!!)
-                )
-            ).execute()
+            try{
+                pokemon = apolloClient.query(
+                    PokemonByIdQuery(
+                        id = Optional.present(pokemonId!!)
+                    )
+                ).execute()
+            }catch (e: Exception){
+                Toast.makeText(context, "Error retrieving Data", Toast.LENGTH_SHORT).show()
+                navController.popBackStack()
+            }
         }
     }
 
     LaunchedEffect(pokemon != null && pokemon!!.data != null) {
         if (pokemon != null && pokemon!!.data != null) {
-            pokemonWeakness = apolloClient.query(
-                TypeWeaknessQuery(
-                    _in = Optional.present(pokemon!!.data!!.pokemon_v2_pokemon[0].pokemon_v2_pokemontypes.map {
-                        it.pokemon_v2_type!!.id
-                    })
-                )
-            ).execute()
+            try{
+                pokemonWeakness = apolloClient.query(
+                    TypeWeaknessQuery(
+                        _in = Optional.present(pokemon!!.data!!.pokemon_v2_pokemon[0].pokemon_v2_pokemontypes.map {
+                            it.pokemon_v2_type!!.id
+                        })
+                    )
+                ).execute()
+            }catch (e: Exception){
+                Toast.makeText(context, "Error retrieving Data", Toast.LENGTH_SHORT).show()
+                navController.popBackStack()
+            }
         }
     }
 

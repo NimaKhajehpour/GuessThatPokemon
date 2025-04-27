@@ -75,11 +75,16 @@ fun GameScreen(
 
         LaunchedEffect(key1 = Unit){
             launch {
-                pokemonList = apolloClient.query(PokemonForGameQuery(
-                    ids = Optional.present(Constants.giveRandomIds(generation, lang!!)),
-                    generation = if (generation != null) Optional.present(generation) else Optional.present(""),
-                    language = Optional.present(lang)
-                )).execute()
+                try{
+                    pokemonList = apolloClient.query(PokemonForGameQuery(
+                        ids = Optional.present(Constants.giveRandomIds(generation, lang!!)),
+                        generation = if (generation != null) Optional.present(generation) else Optional.present(""),
+                        language = Optional.present(lang)
+                    )).execute()
+                }catch (e: Exception){
+                    Toast.makeText(context, "Error retrieving Data", Toast.LENGTH_SHORT).show()
+                    navController.popBackStack()
+                }
             }
         }
         Surface(

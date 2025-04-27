@@ -1,6 +1,7 @@
 package com.nima.guessthatpokemon.screens
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -11,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -35,6 +37,8 @@ fun PokemonCollection(
     viewModel: PokemonListViewModel
 ) {
 
+    val context = LocalContext.current
+
     val pokemons = viewModel.pokemonList.collectAsState().value
 
     var pokemonList: ApolloResponse<PokemonListForCollectionQuery.Data>? by remember {
@@ -56,9 +60,20 @@ fun PokemonCollection(
                 }
 
                 LaunchedEffect(Unit) {
-                    pokemonList =
-                        apolloClient.query(PokemonListForCollectionQuery(ids = Optional.present(ids)))
-                            .execute()
+                    try{
+                        pokemonList =
+                            apolloClient.query(
+                                PokemonListForCollectionQuery(
+                                    ids = Optional.present(
+                                        ids
+                                    )
+                                )
+                            )
+                                .execute()
+                    }catch (e: Exception){
+                        Toast.makeText(context, "Error retrieving Data", Toast.LENGTH_SHORT).show()
+                        navController.popBackStack()
+                    }
                 }
 
                 if (pokemonList == null || pokemonList!!.data!!.pokemon_v2_pokemon.isEmpty()) {
