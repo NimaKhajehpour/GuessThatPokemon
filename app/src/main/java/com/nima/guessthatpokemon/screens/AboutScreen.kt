@@ -58,23 +58,46 @@ fun AboutScreen(
             horizontalArrangement = Arrangement.Center
         ){
             Text(
-                text = stringResource(R.string.a_simple_game_of),
+                text = "${stringResource(R.string.a_simple_game_of)} ${stringResource(R.string.guess_that_pokemon)}",
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.Light,
             )
-            TextButton(onClick = {
-                val browserIntent = Intent(Intent.ACTION_VIEW)
-                browserIntent.data = Uri.parse("https://www.github.com/NimaKhajehpour/GuessThatPokemon")
-                context?.startActivity(browserIntent)
-            },
-                contentPadding = PaddingValues(4.dp),
-                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.tertiary)
-            ) {
-                Text(
-                    text = stringResource(R.string.guessthatpokemon),
-                    style = MaterialTheme.typography.labelLarge,
-                    fontWeight = FontWeight.Light,
+        }
+
+        Row(
+            modifier = Modifier.padding(vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = stringResource(R.string.source_code),
+                style = MaterialTheme.typography.labelLarge,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(end = 10.dp)
+            )
+            Button(
+                onClick = {
+                    val browserIntent = Intent(Intent.ACTION_VIEW)
+                    browserIntent.data =
+                        Uri.parse("https://www.github.com/NimaKhajehpour/GuessThatPokemon")
+                    context?.startActivity(browserIntent)
+                },
+                shape = RoundedCornerShape(5.dp),
+                contentPadding = PaddingValues(8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.github_mark),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(32.dp)
+                        .padding(end = 5.dp),
+                    colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onPrimaryContainer)
+                )
+                Text(text = stringResource(R.string.guess_that_pokemon))
             }
         }
 
