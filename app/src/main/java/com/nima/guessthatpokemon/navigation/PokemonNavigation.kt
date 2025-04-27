@@ -49,5 +49,13 @@ fun PokemonNavigation() {
         composable(PokemonScreens.AboutScreen.name){
             AboutScreen(navController = navController)
         }
+
+        composable(PokemonScreens.DonateScreen.name){
+            DonateScreen(navController)
+        }
+
+        composable(PokemonScreens.SocialsScreen.name){
+            SocialsScreen(navController)
+        }
     }
 }

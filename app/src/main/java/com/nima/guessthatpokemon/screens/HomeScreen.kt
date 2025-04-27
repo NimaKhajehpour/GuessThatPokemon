@@ -192,7 +192,7 @@ fun HomeScreen(
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IconButton(onClick = {
                     scope.launch {
@@ -240,7 +240,6 @@ fun HomeScreen(
                     }
 
                 }
-                Spacer(modifier = Modifier.weight(1f))
 
                 IconButton(onClick = {
                     navController.navigate(PokemonScreens.AboutScreen.name)
@@ -265,7 +264,51 @@ fun HomeScreen(
                     }
                 }
 
-                Spacer(modifier = Modifier.weight(1f))
+                IconButton(onClick = {
+                    navController.navigate(PokemonScreens.DonateScreen.name)
+                },
+                    modifier = Modifier.size(48.dp)
+
+                ) {
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ){
+                        Icon(
+                            painter = painterResource(R.drawable.donate),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.tertiary
+                        )
+
+                        Text(text = stringResource(R.string.donate),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.tertiary
+                        )
+                    }
+                }
+
+                IconButton(onClick = {
+                    navController.navigate(PokemonScreens.SocialsScreen.name)
+                },
+                    modifier = Modifier.size(48.dp)
+
+                ) {
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ){
+                        Icon(
+                            painter = painterResource(R.drawable.socials),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.tertiary
+                        )
+
+                        Text(text = stringResource(R.string.socials),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.tertiary
+                        )
+                    }
+                }
 
                 IconButton(onClick = {
                     if (activity != null) {
@@ -328,6 +371,16 @@ fun HomeScreen(
                 // Go to collections
                 navController.navigate(PokemonScreens.CollectionScreen.name)
             }
+
+//            ButtonComponent(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(start = 32.dp, end = 32.dp, bottom = 8.dp),
+//                enabled = true,
+//                text = stringResource(R.string.settings)
+//            ){
+//                // go to settings screen
+//            }
         }
     }
 }

@@ -39,4 +39,16 @@
     <string name="load_more">Load More</string>
     <string name="loading_pokemon_data">Loading Pokemon Data</string>
     <string name="source_code">Source Code:</string>
+    <string name="donate">Donate</string>
+    <string name="socials">Socials</string>
+    <string name="settings">Settings</string>
+    <string name="community_prompt">Join the community, it\'ll be fun!</string>
+    <string name="donate_prompt">Consider Donating?\nThis app is a hobby project and does not have any way of income for me. But your donations to me through these link are appreciated and gives me motivation to keep maintaining this application and other projects!</string>
+    <string name="coming_soon">Coming Soon!</string>
+    <string name="paypal_coming_soon">PayPal Coming Soon!</string>
+    <string name="address_copied">Address Copied</string>
+    <string name="copy_ethereum">Copy Ethereum Address</string>
+    <string name="copy_btc_coin">Copy Btc (Coin) Address</string>
+    <string name="copy_tether">Copy Tether (USDT) Address</string>
+    <string name="copy_ton">Copy TON Address</string>
 </resources>
