@@ -57,5 +57,11 @@ fun PokemonNavigation() {
         composable(PokemonScreens.SocialsScreen.name){
             SocialsScreen(navController)
         }
+
+        composable(PokemonScreens.MultiOptionGameScreen.name+"/{lang}",
+            arguments = listOf(navArgument("lang"){NavType.StringType})
+        ){
+            MultiOptionGameScreen(navController, koinViewModel(), it.arguments?.getString("lang"))
+        }
     }
 }

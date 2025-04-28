@@ -45,6 +45,9 @@ fun HomeScreen(
     var showSettingDialog by remember {
         mutableStateOf(false)
     }
+    var showMultiOptionSettings by remember {
+        mutableStateOf(false)
+    }
 
     val isDark =
         themeDataStore.getTheme.collectAsState(initial = false).value ?: false
@@ -180,6 +183,88 @@ fun HomeScreen(
 
                             //go with desired settings
                             navController.navigate(PokemonScreens.GameScreen.name+"/$selectedLanguage/$selectedGeneration"
+                            )
+                        }) {
+                            Text(text = stringResource(R.string.start_game))
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = {
+                            showSettingDialog = false
+                        }) {
+                            Text(text = stringResource(R.string.cancel))
+                        }
+                    }
+                )
+            }
+
+            if (showMultiOptionSettings){
+                AlertDialog(onDismissRequest = {
+                    showMultiOptionSettings = false
+                },
+                    text = {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .verticalScroll(rememberScrollState()),
+                            verticalArrangement = Arrangement.Top,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            var languageMenuExpanded by remember {
+                                mutableStateOf(false)
+                            }
+
+                            Text(text = stringResource(R.string.multi_option_game_prompt),
+                                modifier = Modifier.padding(bottom = 12.dp),
+                                textAlign = TextAlign.Center
+                            )
+
+                            ExposedDropdownMenuBox(
+                                expanded = languageMenuExpanded,
+                                onExpandedChange = {languageMenuExpanded = !languageMenuExpanded}
+                            ) {
+                                OutlinedTextField(value = selectedLangToShow,
+                                    onValueChange = {},
+                                    modifier = Modifier.menuAnchor(),
+                                    readOnly = true,
+                                    label = {
+                                        Text(text = stringResource(R.string.language))
+                                    },
+                                    trailingIcon = {
+                                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = languageMenuExpanded)
+                                    },
+                                    colors = ExposedDropdownMenuDefaults.textFieldColors()
+                                )
+                                ExposedDropdownMenu(
+                                    expanded = languageMenuExpanded,
+                                    onDismissRequest = { languageMenuExpanded = false }) {
+                                    Constants.languageNames.forEach{
+                                        DropdownMenuItem(
+                                            text = { Text(text = it.key) },
+                                            onClick = {
+                                                selectedLanguage = it.value
+                                                selectedLangToShow = it.key
+                                                languageMenuExpanded = false
+                                            },
+                                            contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    title = {
+                        Text(text = stringResource(R.string.game_settings))
+                    },
+                    icon = {
+                        Icon(imageVector = Icons.Default.Settings, contentDescription = null)
+                    },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            showMultiOptionSettings = false
+
+                            //go with desired settings
+                            navController.navigate(PokemonScreens.MultiOptionGameScreen.name+"/$selectedLanguage"
                             )
                         }) {
                             Text(text = stringResource(R.string.start_game))
@@ -365,6 +450,16 @@ fun HomeScreen(
                 text = stringResource(R.string.start_game)
             ){
                 showSettingDialog = true
+            }
+
+            ButtonComponent(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 32.dp, end = 32.dp, bottom = 8.dp),
+                enabled = true,
+                text = stringResource(R.string.multi_option_game)
+            ){
+                showMultiOptionSettings = true
             }
 
             ButtonComponent(

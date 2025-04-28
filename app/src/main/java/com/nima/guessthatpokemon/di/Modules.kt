@@ -6,6 +6,7 @@ import com.nima.guessthatpokemon.database.PokemonDao
 import com.nima.guessthatpokemon.database.PokemonDatabase
 import com.nima.guessthatpokemon.repository.PokemonRepository
 import com.nima.guessthatpokemon.util.Constants
+import com.nima.guessthatpokemon.viewmodels.MultiOptionGameViewModel
 import com.nima.guessthatpokemon.viewmodels.PokemonGameViewModel
 import com.nima.guessthatpokemon.viewmodels.PokemonListViewModel
 import org.koin.android.ext.koin.androidApplication
@@ -36,6 +37,10 @@ val module = module{
     }
     viewModel {
         PokemonGameViewModel(get())
+    }
+
+    viewModel {
+        MultiOptionGameViewModel(get())
     }
 
 }

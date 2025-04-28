@@ -51,4 +51,6 @@
     <string name="copy_btc_coin">Copy Btc (Coin) Address</string>
     <string name="copy_tether">Copy Tether (USDT) Address</string>
     <string name="copy_ton">Copy TON Address</string>
+    <string name="multi_option_game">Multi Option Game</string>
+    <string name="multi_option_game_prompt">In this mode of the game, you will have 20 pokemons shown to you and you will have to choose the right name of the pokemon from the options provided. Have Fun :)</string>
 </resources>

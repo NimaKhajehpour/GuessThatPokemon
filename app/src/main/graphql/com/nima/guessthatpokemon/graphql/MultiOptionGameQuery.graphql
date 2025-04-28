@@ -1,0 +1,14 @@
+query MultiOptionGameQuery($real_id: [Int!], $fake_id: [Int!], $language: String!) {
+    real_pokemons: pokemon_v2_pokemonspeciesname(
+        where: {pokemon_species_id: {_in: $real_id}, pokemon_v2_language: {name: {_eq: $language}}}
+    ) {
+        name
+        pokemon_species_id
+    }
+    fake_pokemons: pokemon_v2_pokemonspeciesname(
+        where: {pokemon_species_id: {_in: $fake_id}, pokemon_v2_language: {name: {_eq: $language}}}
+    ) {
+        name
+        pokemon_species_id
+    }
+}

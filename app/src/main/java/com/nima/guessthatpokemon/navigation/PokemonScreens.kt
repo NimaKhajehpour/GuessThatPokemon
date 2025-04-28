@@ -8,5 +8,6 @@ enum class PokemonScreens {
     AboutScreen,
     DonateScreen,
     SocialsScreen,
+    MultiOptionGameScreen
 //    SettingsScreen
 }
