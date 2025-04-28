@@ -151,30 +151,13 @@ fun GameScreen(
                             mutableStateOf(0)
                         }
 
-                        Box(
-                            modifier = Modifier.padding(vertical = 16.dp, horizontal = 32.dp)
-                        ){
-
-                            PokemonProgressBar(
-                                modifier = Modifier
-                                    .clip(RoundedCornerShape(50))
-                                    .border(
-                                        width = .1.dp,
-                                        shape = RoundedCornerShape(50),
-                                        color = Color.Transparent
-                                    )
-                                    .height(50.dp)
-                                    .fillMaxWidth(),
-                                progress = (progress * 100 / 20f) / 100f
-                            )
-                            Text(text = stringResource(R.string.progressOf_20, progress),
-                                modifier = Modifier.align(Alignment.Center),
-                                textAlign = TextAlign.Center,
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = Color.White,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
+                        LinearProgressIndicator(
+                            progress = {
+                                (progress * 100 / 20) / 100f
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(vertical = 16.dp, horizontal = 32.dp)
+                        )
 
                         ElevatedCard(
                             modifier = Modifier

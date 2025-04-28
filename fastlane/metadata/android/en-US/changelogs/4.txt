@@ -1,0 +1,9 @@
+* slight UI tweaks
+* migrated to a better and faster api
+* added socials and donate screens
+* changed gradle structure, bumped library versions
+* NEW GAME MODE: Multi option game
+* fixed no connection issue
+* added filter by generation in collection
+* fixed special characters, removed all gender symbols, replaced the symbol for quotation marks
+* made string resources for better translation
