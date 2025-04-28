@@ -92,38 +92,37 @@ fun PokemonCollection(
                         modifier = Modifier.padding(vertical = 8.dp)
                     )
                 } else {
-                    Box(
+                    Column (
                         modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Top,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         var selectedGeneration by remember {
                             mutableStateOf(0)
                         }
+                        LazyRow(
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(8.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Start,
+                            contentPadding = PaddingValues(5.dp)
+                        ) {
+                            items(10){
+                                FilterChip(
+                                    selected = it == selectedGeneration,
+                                    onClick = {
+                                        selectedGeneration = it
+                                    },
+                                    label = {
+                                        Text(Constants.returnGenerationName(it))
+                                    },
+                                    modifier = Modifier.padding(end = 3.dp)
+                                )
+                            }
+                        }
                         LazyVerticalGrid(
                             columns = GridCells.Fixed(2),
-                            modifier = Modifier.align(Alignment.TopCenter)
                         ) {
-                            stickyHeader {
-                                LazyRow(
-                                    modifier = Modifier.fillMaxWidth()
-                                        .padding(8.dp),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.Start,
-                                    contentPadding = PaddingValues(5.dp)
-                                ) {
-                                    items(10){
-                                        FilterChip(
-                                            selected = it == selectedGeneration,
-                                            onClick = {
-                                                selectedGeneration = it
-                                            },
-                                            label = {
-                                                Text(Constants.returnGenerationName(it))
-                                            },
-                                            modifier = Modifier.padding(end = 3.dp)
-                                        )
-                                    }
-                                }
-                            }
                             itemsIndexed(if (selectedGeneration == 0) pokemonList!!.data!!.pokemon_v2_pokemon else
                                 pokemonList!!.data!!.pokemon_v2_pokemon.filter {
                                     it.pokemon_v2_pokemonspecy!!.pokemon_v2_generation!!.name == Constants.returnGenerationName(selectedGeneration)
