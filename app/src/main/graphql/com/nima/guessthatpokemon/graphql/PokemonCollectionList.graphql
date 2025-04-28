@@ -7,5 +7,10 @@ query PokemonListForCollection($ids: [Int!]) {
                 name
             }
         }
+        pokemon_v2_pokemonspecy {
+            pokemon_v2_generation {
+                name
+            }
+        }
     }
 }

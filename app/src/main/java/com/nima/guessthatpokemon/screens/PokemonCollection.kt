@@ -3,6 +3,7 @@ package com.nima.guessthatpokemon.screens
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
@@ -94,12 +95,40 @@ fun PokemonCollection(
                     Box(
                         modifier = Modifier.fillMaxSize(),
                     ) {
-
+                        var selectedGeneration by remember {
+                            mutableStateOf(0)
+                        }
                         LazyVerticalGrid(
                             columns = GridCells.Fixed(2),
                             modifier = Modifier.align(Alignment.TopCenter)
                         ) {
-                            itemsIndexed(pokemonList!!.data!!.pokemon_v2_pokemon) { index, item ->
+                            stickyHeader {
+                                LazyRow(
+                                    modifier = Modifier.fillMaxWidth()
+                                        .padding(8.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.Start,
+                                    contentPadding = PaddingValues(5.dp)
+                                ) {
+                                    items(10){
+                                        FilterChip(
+                                            selected = it == selectedGeneration,
+                                            onClick = {
+                                                selectedGeneration = it
+                                            },
+                                            label = {
+                                                Text(Constants.returnGenerationName(it))
+                                            },
+                                            modifier = Modifier.padding(end = 3.dp)
+                                        )
+                                    }
+                                }
+                            }
+                            itemsIndexed(if (selectedGeneration == 0) pokemonList!!.data!!.pokemon_v2_pokemon else
+                                pokemonList!!.data!!.pokemon_v2_pokemon.filter {
+                                    it.pokemon_v2_pokemonspecy!!.pokemon_v2_generation!!.name == Constants.returnGenerationName(selectedGeneration)
+                                }
+                            ) { index, item ->
                                 ElevatedCard(
                                     modifier = Modifier
                                         .padding(8.dp)
